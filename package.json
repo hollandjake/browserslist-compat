@@ -1,0 +1,84 @@
+{
+    "name": "browserslist-compat",
+    "version": "0.1.0",
+    "description": "Build targets from a package's browserslist and engines for tsdown, rolldown, Vite and esbuild, and a plugin that checks the output really runs on them",
+    "keywords": [
+        "browserslist",
+        "compat",
+        "engines",
+        "es-check",
+        "esbuild",
+        "oxc",
+        "rolldown",
+        "rolldown-plugin",
+        "target",
+        "tsdown",
+        "vite",
+        "vite-plugin"
+    ],
+    "homepage": "https://github.com/hollandjake/browserslist-compat#readme",
+    "bugs": {
+        "url": "https://github.com/hollandjake/browserslist-compat/issues"
+    },
+    "license": "MIT",
+    "author": "Jake Holland",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hollandjake/browserslist-compat.git"
+    },
+    "files": [
+        "dist"
+    ],
+    "type": "module",
+    "sideEffects": false,
+    "types": "./dist/index.d.mts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "scripts": {
+        "build": "tsc && tsdown --config-loader native",
+        "check": "publint && attw --pack . --profile esm-only",
+        "format": "oxfmt --check",
+        "format:fix": "oxfmt",
+        "lint": "oxlint",
+        "lint:fix": "oxlint --fix",
+        "test": "tsc && tsc -p test && vitest run",
+        "type:check": "tsc && tsc -p test"
+    },
+    "dependencies": {
+        "@babel/compat-data": "^8.0.5",
+        "browserslist": "^4.29.3",
+        "oxc-parser": "^0.153.0"
+    },
+    "devDependencies": {
+        "@arethetypeswrong/cli": "^0.18.5",
+        "@types/node": "^26.2.0",
+        "@types/semver": "^7.7.0",
+        "esbuild": "^0.28.0",
+        "oxfmt": "^0.62.0",
+        "oxlint": "^1.78.0",
+        "publint": "^0.3.25",
+        "rolldown": "^1.2.0",
+        "semver": "^7.7.0",
+        "tsdown": "^0.22.0",
+        "typescript": "^7.0.2",
+        "vitest": "^4.1.10"
+    },
+    "peerDependencies": {
+        "rolldown": "^1.0.0"
+    },
+    "peerDependenciesMeta": {
+        "rolldown": {
+            "optional": true
+        }
+    },
+    "engines": {
+        "bun": ">=1.0.0",
+        "node": "^22.18.0 || >=24.11.0"
+    },
+    "packageManager": "bun@1.4.3"
+}

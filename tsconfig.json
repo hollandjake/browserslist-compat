@@ -1,0 +1,25 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "lib": ["ES2022"],
+        "module": "ESNext",
+        "target": "ES2022",
+        "types": ["node"],
+        "skipLibCheck": true,
+        "useDefineForClassFields": false,
+
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "verbatimModuleSyntax": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "declaration": true,
+        "isolatedDeclarations": true,
+
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true
+    }
+}

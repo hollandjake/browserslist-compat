@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Dependencies are ranges, so users get their updates on install: these bumps only raise this repo's own versions,
+  # so they're `chore:` commits, which release nothing
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+    # One PR a week for all of them; `dependency-type` grouping isn't supported for bun
+    groups:
+      dependencies:
+        patterns: ['*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci

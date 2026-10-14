@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          release-type: node
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+
+  publish:
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
+    uses: ./.github/workflows/publish.yml

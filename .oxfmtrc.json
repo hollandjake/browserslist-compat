@@ -1,0 +1,8 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "tabWidth": 4,
+    "printWidth": 120,
+    "sortImports": true,
+    "ignorePatterns": ["**/*.yml", "**/*.yaml", "**/*.md", "**/dist/**"],
+    "endOfLine": "lf"
+}

@@ -26,15 +26,31 @@ jobs:
         with:
           bun-version-file: 'package.json'
 
+      # A version already on npm (published by hand, or by an earlier run) isn't published again: npm would refuse it
+      - name: Check whether npm has this version
+        id: npm
+        run: |
+          spec="$(node -p 'const p = require("./package.json"); `${p.name}@${p.version}`')"
+          if npm view "$spec" version > /dev/null 2>&1; then
+            echo "$spec is on npm already, so it isn't published again"
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
       # Trusted publishing needs npm 11.5.1 or later
       - name: Update npm
+        if: steps.npm.outputs.published != 'true'
         run: npm install -g npm@latest
 
       - name: Install dependencies
+        if: steps.npm.outputs.published != 'true'
         run: bun install --frozen-lockfile
 
       - name: Build
+        if: steps.npm.outputs.published != 'true'
         run: bun run build
 
       - name: Publish
+        if: steps.npm.outputs.published != 'true'
         run: npm publish --access public

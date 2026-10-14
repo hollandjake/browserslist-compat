@@ -29,9 +29,11 @@ jobs:
       # A version already on npm (published by hand, or by an earlier run) isn't published again: npm would refuse it
       - name: Check whether npm has this version
         id: npm
+        # Asked of the registry directly, without npm, whose config here holds setup-node's placeholder token
         run: |
-          spec="$(node -p 'const p = require("./package.json"); `${p.name}@${p.version}`')"
-          if npm view "$spec" version > /dev/null 2>&1; then
+          spec="$(node -p 'const p = require("./package.json"); `${encodeURIComponent(p.name)}/${p.version}`')"
+          status="$(curl -s -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/$spec")"
+          if [ "$status" = 200 ]; then
             echo "$spec is on npm already, so it isn't published again"
             echo "published=true" >> "$GITHUB_OUTPUT"
           else
@@ -54,3 +56,6 @@ jobs:
       - name: Publish
         if: steps.npm.outputs.published != 'true'
         run: npm publish --access public
+        env:
+          # Empty, so npm authenticates with the OIDC token rather than setup-node's placeholder
+          NODE_AUTH_TOKEN: ''

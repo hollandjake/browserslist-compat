@@ -52,7 +52,7 @@
     "dependencies": {
         "@babel/compat-data": "^8.0.5",
         "browserslist": "^4.29.3",
-        "oxc-parser": "^0.153.0"
+        "oxc-parser": "^0.157.0"
     },
     "devDependencies": {
         "@arethetypeswrong/cli": "^0.18.5",
